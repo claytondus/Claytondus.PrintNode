@@ -35,7 +35,7 @@ namespace Claytondus.PrintNode
 				    .AppendPathSegment(resource)
 				    .SetQueryParams(queryParams)
 				    .WithDefaults()
-				    .WithOAuthBearerToken(_authToken)
+				    .WithBasicAuth(_authToken, String.Empty)
 					.GetAsync();
                 Log.Trace(response.RequestMessage.ToString);
 			    var responseBody = await response.Content.ReadAsStringAsync();
@@ -75,7 +75,7 @@ namespace Claytondus.PrintNode
 				var response = await new Url(PrintNodeUrl)
                     .AppendPathSegment(resource)
 					.WithDefaults()
-			        .WithOAuthBearerToken(_authToken)
+			        .WithBasicAuth(_authToken, string.Empty)
 			        .PostJsonAsync(body);
                 Log.Trace(response.RequestMessage.ToString());
                 //Log.Trace("Request: " + await response.RequestMessage.Content.ReadAsStringAsync());

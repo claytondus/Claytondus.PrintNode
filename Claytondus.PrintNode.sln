@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Claytondus.PrintNode", "Claytondus.PrintNode\Claytondus.PrintNode.csproj", "{93663115-8C15-47CE-9F0C-AF48106CDD4D}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D3E400A4-5B96-4AA2-B762-DCCD74B04DC5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Claytondus.PrintNode", "src\Claytondus.PrintNode\Claytondus.PrintNode.csproj", "{3FDDC75F-4D64-475F-BE84-5951F00B6874}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E9121686-65B0-4D67-AA01-CD7720E7970A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Claytondus.PrintNode.Test", "test\Claytondus.PrintNode.Test\Claytondus.PrintNode.Test.csproj", "{657FAD68-376D-4F45-928A-93B274B981DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,12 +17,20 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{93663115-8C15-47CE-9F0C-AF48106CDD4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{93663115-8C15-47CE-9F0C-AF48106CDD4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{93663115-8C15-47CE-9F0C-AF48106CDD4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{93663115-8C15-47CE-9F0C-AF48106CDD4D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3FDDC75F-4D64-475F-BE84-5951F00B6874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FDDC75F-4D64-475F-BE84-5951F00B6874}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FDDC75F-4D64-475F-BE84-5951F00B6874}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FDDC75F-4D64-475F-BE84-5951F00B6874}.Release|Any CPU.Build.0 = Release|Any CPU
+		{657FAD68-376D-4F45-928A-93B274B981DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{657FAD68-376D-4F45-928A-93B274B981DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{657FAD68-376D-4F45-928A-93B274B981DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{657FAD68-376D-4F45-928A-93B274B981DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3FDDC75F-4D64-475F-BE84-5951F00B6874} = {D3E400A4-5B96-4AA2-B762-DCCD74B04DC5}
+		{657FAD68-376D-4F45-928A-93B274B981DF} = {E9121686-65B0-4D67-AA01-CD7720E7970A}
 	EndGlobalSection
 EndGlobal

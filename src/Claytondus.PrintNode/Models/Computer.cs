@@ -16,6 +16,6 @@ namespace Claytondus.PrintNode.Models
         public string version { get; set; }
         public string jre { get; set; }
         public DateTime? createTimestamp { get; set; }
-        public string state { get; set }
+        public string state { get; set; }
     }
 }

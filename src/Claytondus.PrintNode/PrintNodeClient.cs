@@ -12,10 +12,10 @@ namespace Claytondus.PrintNode
 		{
 		}
 
-	    public async Task<Address> CreateAddressAsync(Address address)
+	    public async Task<WhoAmI> GetWhoAmIAsync()
 	    {
-	        const string resource = "/addresses";
-	        return await PostAsync<Address>(resource, address);
+	        const string resource = "/whoami";
+	        return await GetAsync<WhoAmI>(resource);
 	    }
 
 
