@@ -12,12 +12,12 @@ namespace Claytondus.PrintNode.Models
         public bool collate { get; set; }
         public int copies { get; set; }
         public bool color { get; set; }
-        public string dpis { get; set; }
+        public List<string> dpis { get; set; }
         public bool duplex { get; set; }
-        public List<Tuple<int, int>> extent { get; set; }
+        public List<List<int>> extent { get; set; }
         public List<string> medias { get; set; }
         public List<int> nup { get; set; }
-        public Dictionary<string, Tuple<int, int>> papers { get; set; }
+        public Dictionary<string, List<int>> papers { get; set; }
         public PrintRate printrate { get; set; }
         public bool supports_custom_paper_size { get; set; }
     }

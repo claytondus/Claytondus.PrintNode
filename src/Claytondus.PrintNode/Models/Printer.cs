@@ -13,7 +13,7 @@ namespace Claytondus.PrintNode.Models
         public Computer computer { get; set; }
         public string name { get; set; }
         public string description { get; set; }
-        public string capabilities { get; set; }
+        public Capabilities capabilities { get; set; }
 
         [JsonProperty("default")]
         public string Default { get;set;}

@@ -78,7 +78,6 @@ namespace Claytondus.PrintNode
 			        .WithBasicAuth(_authToken, string.Empty)
 			        .PostJsonAsync(body);
                 Log.Trace(response.RequestMessage.ToString());
-                //Log.Trace("Request: " + await response.RequestMessage.Content.ReadAsStringAsync());
                 var responseBody = await response.Content.ReadAsStringAsync();
                 Log.Trace("Response: " + responseBody);
                 var settings = new JsonSerializerSettings
