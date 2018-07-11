@@ -58,7 +58,7 @@ namespace Claytondus.PrintNode
 			}
 			catch (FlurlHttpException ex)
 			{
-			    var response = ex.Call.ErrorResponseBody;
+			    var response = await ex.GetResponseStringAsync();
 			    throw new PrintNodeException("error", response)
 			    {
 			        Method = "GET",
@@ -99,7 +99,7 @@ namespace Claytondus.PrintNode
 			}
 			catch (FlurlHttpException ex)
 			{
-                var response = ex.Call.ErrorResponseBody;
+                var response = await ex.GetResponseStringAsync();
 			    throw new PrintNodeException("error", response)
 			    {
 			        Method = "POST",
@@ -131,7 +131,7 @@ namespace Claytondus.PrintNode
 		    }
 		    catch (FlurlHttpException ex)
 		    {
-		        var response = ex.Call.ErrorResponseBody;
+		        var response = await ex.GetResponseStringAsync();
 		        throw new PrintNodeException("error", response)
 		        {
 		            Method = "PUT",
@@ -161,7 +161,7 @@ namespace Claytondus.PrintNode
             }
             catch (FlurlHttpException ex)
             {
-                var response = ex.Call.ErrorResponseBody;
+                var response = await ex.GetResponseStringAsync();
                 throw new PrintNodeException("error", response)
                 {
                     Method = "DELETE",
@@ -192,7 +192,7 @@ namespace Claytondus.PrintNode
 			}
 			catch (FlurlHttpException ex)
 			{
-                var response = ex.Call.ErrorResponseBody;
+                var response = await ex.GetResponseStringAsync();
 			    throw new PrintNodeException("error", response)
 			    {
 			        Method = "DELETE",
