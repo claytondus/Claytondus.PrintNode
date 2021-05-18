@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using Claytondus.PrintNode.Models;
+﻿using System.Threading.Tasks;
 using Xunit;
 
 namespace Claytondus.PrintNode.Test
@@ -16,7 +12,7 @@ namespace Claytondus.PrintNode.Test
             _client = new PrintNodeClient(Configuration.GetSetting("apiKey"));
         }
 
- 
+
         [Fact]
         public async Task GetComputersTest()
         {

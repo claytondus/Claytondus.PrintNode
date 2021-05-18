@@ -1,31 +1,30 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   
   <PropertyGroup>
-    <TargetFrameworks>net45;netstandard1.4</TargetFrameworks>
+    <TargetFrameworks>net461;netstandard2.0</TargetFrameworks>
     <AssemblyName>Claytondus.PrintNode</AssemblyName>
     <PackageId>Claytondus.PrintNode</PackageId>
     <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
     <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
     <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-    <PackageVersion>0.3.0</PackageVersion>
+    <PackageVersion>1.0.0</PackageVersion>
     <Description>.NET Standard PrintNode client</Description>
     <Authors>PrintNode, Ltd. and Clayton Davis</Authors>
-    <Copyright>Copyright 2017 Clayton Davis. All rights reserved.</Copyright>
+    <Copyright>Copyright 2021 Clayton Davis. All rights reserved.</Copyright>
     <PackageProjectUrl>https://github.com/claytondus/Claytondus.PrintNode</PackageProjectUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(TargetFramework)'=='netstandard1.4'">
-    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
-    <DefineConstants>$(DefineConstants);LIBLOG_PORTABLE</DefineConstants>
+    <Nullable>enable</Nullable>
+    <WarningsAsErrors>nullable</WarningsAsErrors>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Flurl" Version="2.7.1" />
-    <PackageReference Include="Flurl.Http" Version="2.3.2" />
+    <PackageReference Include="Flurl.Http" Version="3.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="3.1.15" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(TargetFramework)' == 'net45' ">
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http" />
