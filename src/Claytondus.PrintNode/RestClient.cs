@@ -1,44 +1,42 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
-using Claytondus.PrintNode.Logging;
 using Claytondus.PrintNode.Models;
 using Flurl;
 using Flurl.Http;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace Claytondus.PrintNode
 {
     public class RestClient
     {
-	    protected readonly string PrintNodeUrl = "https://api.printnode.com/";
+	    protected readonly Url PrintNodeUrl = "https://api.printnode.com/";
 	    private readonly string _authToken;
-        private static readonly ILog Log = LogProvider.For<RestClient>();
+	    private readonly ILogger? _logger;
 
-        public RestClient()
-		{
-		}
-
-		public RestClient(string authToken)
+		public RestClient(string authToken, ILogger? logger = null)
 		{
 			_authToken = authToken;
+			_logger = logger;
 		}
 
-	    protected async Task<T> GetAsync<T>(string resource, object queryParams = null) where T : class
+	    protected async Task<T> GetAsync<T>(string resource,
+		    object? queryParams = null,
+		    CancellationToken cancellationToken = new()) where T : class
 	    {
 		    try
 		    {
-			    var response = await new Url(PrintNodeUrl)
+			    var request = PrintNodeUrl
 				    .AppendPathSegment(resource)
 				    .SetQueryParams(queryParams)
 				    .WithDefaults()
-				    .WithBasicAuth(_authToken, String.Empty)
-					.GetAsync();
-                Log.Trace(response.RequestMessage.ToString);
-			    var responseBody = await response.Content.ReadAsStringAsync();
+				    .WithBasicAuth(_authToken, String.Empty);
+
+			    var response = await request.GetAsync(cancellationToken);
+			    _logger?.LogTrace(response.ResponseMessage.RequestMessage.ToString());
+
+			    var responseBody = await response.GetStringAsync();
 				var settings = new JsonSerializerSettings
 				{
 					Error = (sender, args) =>
@@ -63,23 +61,23 @@ namespace Claytondus.PrintNode
 			    {
 			        Method = "GET",
 			        Resource = resource,
-			        HttpStatus = ex.Call.HttpStatus
+			        HttpStatus = ex.Call.HttpResponseMessage.StatusCode
 			    };
 			}
 		}
 
-		protected async Task<T> PostAsync<T>(string resource, object body)
+		protected async Task<T> PostAsync<T>(string resource, object body, CancellationToken cancellationToken = new())
 	    {
             try
 			{
-				var response = await new Url(PrintNodeUrl)
+				var response = await PrintNodeUrl
                     .AppendPathSegment(resource)
 					.WithDefaults()
 			        .WithBasicAuth(_authToken, string.Empty)
-			        .PostJsonAsync(body);
-                Log.Trace(response.RequestMessage.ToString());
-                var responseBody = await response.Content.ReadAsStringAsync();
-                Log.Trace("Response: " + responseBody);
+			        .PostJsonAsync(body, cancellationToken);
+                _logger?.LogTrace(response.ResponseMessage.RequestMessage.ToString());
+                var responseBody = await response.GetStringAsync();
+                _logger?.LogTrace("Response: {responseBody}", responseBody);
                 var settings = new JsonSerializerSettings
                 {
                     Error = (sender, args) =>
@@ -104,24 +102,24 @@ namespace Claytondus.PrintNode
 			    {
 			        Method = "POST",
 			        Resource = resource,
-			        HttpStatus = ex.Call.HttpStatus,
+			        HttpStatus = ex.Call.HttpResponseMessage.StatusCode,
 			        HttpMessage = ex.Message,
 			        RequestBody = ex.Call.RequestBody
 			    };
 			}
-			
+
 	    }
 
-		protected async Task<T> PutAsync<T>(string resource, object body = null)
+		protected async Task<T> PutAsync<T>(string resource, object? body = null, CancellationToken cancellationToken = new())
 		{
-            Log.Trace("PUT " + resource);
+            _logger?.LogTrace("PUT {0}", resource);
 		    try
 		    {
-		        var response = await new Url(PrintNodeUrl)
+		        var response = await PrintNodeUrl
 		            .AppendPathSegment(resource)
 		            .WithDefaults()
 		            .WithOAuthBearerToken(_authToken)
-		            .PutJsonAsync(body)
+		            .PutJsonAsync(body, cancellationToken)
 		            .ReceiveJson<T>();
 		        return response;
 		    }
@@ -136,24 +134,24 @@ namespace Claytondus.PrintNode
 		        {
 		            Method = "PUT",
 		            Resource = resource,
-		            HttpStatus = ex.Call.HttpStatus,
+		            HttpStatus = ex.Call.HttpResponseMessage.StatusCode,
 		            HttpMessage = ex.Message,
 		            RequestBody = ex.Call.RequestBody
 		        };
 		    }
 		}
 
-        protected async Task DeleteAsync(string resource, object queryParams = null)
+        protected async Task DeleteAsync(string resource, object? queryParams = null, CancellationToken cancellationToken = new())
         {
-            Log.Trace("DELETE " + resource);
+            _logger?.LogTrace("DELETE {0}", resource);
             try
             {
-                await new Url(PrintNodeUrl)
+                await PrintNodeUrl
                     .AppendPathSegment(resource)
                     .SetQueryParams(queryParams)
                     .WithDefaults()
                     .WithOAuthBearerToken(_authToken)
-                    .DeleteAsync();
+                    .DeleteAsync(cancellationToken);
             }
             catch (FlurlHttpTimeoutException)
             {
@@ -166,23 +164,23 @@ namespace Claytondus.PrintNode
                 {
                     Method = "DELETE",
                     Resource = resource,
-                    HttpStatus = ex.Call.HttpStatus,
+                    HttpStatus = ex.Call.HttpResponseMessage.StatusCode,
                     HttpMessage = ex.Message
                 };
             }
         }
 
-        protected async Task<T> DeleteAsync<T>(string resource, object queryParams = null)
+        protected async Task<T> DeleteAsync<T>(string resource, object? queryParams = null, CancellationToken cancellationToken = new())
 		{
-            Log.Trace("DELETE " + resource);
+            _logger?.LogTrace("DELETE {0}", resource);
             try
             {
-                var response = await new Url(PrintNodeUrl)
+                var response = await PrintNodeUrl
                     .AppendPathSegment(resource)
                     .SetQueryParams(queryParams)
                     .WithDefaults()
                     .WithOAuthBearerToken(_authToken)
-                    .DeleteAsync()
+                    .DeleteAsync(cancellationToken)
                     .ReceiveJson<T>();
                 return response;
             }
@@ -197,7 +195,7 @@ namespace Claytondus.PrintNode
 			    {
 			        Method = "DELETE",
 			        Resource = resource,
-			        HttpStatus = ex.Call.HttpStatus,
+			        HttpStatus = ex.Call.HttpResponseMessage.StatusCode,
 			        HttpMessage = ex.Message
 			    };
 			}

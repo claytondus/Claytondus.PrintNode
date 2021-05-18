@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Threading.Tasks;
@@ -22,14 +21,14 @@ namespace Claytondus.PrintNode.Test
         {
             var job = new PrintJob
             {
-                printerId = 274556,
+                printerId = 69051751,
                 title = $"Test {DateTime.Now}",
                 contentType = "raw_base64",
                 content = Convert.ToBase64String(Encoding.ASCII.GetBytes(File.ReadAllText("test.zpl"))),
                 source = "test"
             };
             var created = await _client.CreatePrintJobAsync(job);
-            Assert.NotNull(created);
+            Assert.True(created > 0);
         }
 
         [Fact]
@@ -37,7 +36,7 @@ namespace Claytondus.PrintNode.Test
         {
             var job = new PrintJob
             {
-                printerId = 274556,
+                printerId = 69051751,
                 title = $"Test {DateTime.Now}",
                 contentType = "raw_uri",
                 content = "https://easypost-files.s3-us-west-2.amazonaws.com/files/postage_label/20170807/0a4c06b8b97c4edbb6fa37126cf414cf.zpl",
@@ -52,7 +51,7 @@ namespace Claytondus.PrintNode.Test
         {
             var job = new PrintJob
             {
-                printerId = 67163,
+                printerId = 69051751,
                 title = $"Test {DateTime.Now}",
                 contentType = "raw_uri",
                 content = "https://easypost-files.s3-us-west-2.amazonaws.com/files/postage_label/20170807/05bf2acc50b544f38df5ab1cb232513d.epl2",
@@ -67,7 +66,7 @@ namespace Claytondus.PrintNode.Test
         {
             var job = new PrintJob
             {
-                printerId = 67164,
+                printerId = 70200304,
                 title = $"Test {DateTime.Now}",
                 contentType = "raw_uri",
                 content = "https://easypost-files.s3-us-west-2.amazonaws.com/files/postage_label/20170807/32ac6e77127045e1a70e8d217ddfe44e.png",

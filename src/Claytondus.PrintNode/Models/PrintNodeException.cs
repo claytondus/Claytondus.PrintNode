@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace Claytondus.PrintNode.Models
@@ -18,16 +14,16 @@ namespace Claytondus.PrintNode.Models
         }
 
         public string PrintNodeType { get; set; }
-        public string RequestBody { get; set; }
+        public string? RequestBody { get; set; }
         public string ResponseBody { get; set; }
 
         public HttpStatusCode? HttpStatus { get; set; }
 
-        public string Method { get; set; }
-        public string Resource { get; set; }
-        public string HttpMessage { get; set; }
+        public string? Method { get; set; }
+        public string? Resource { get; set; }
+        public string? HttpMessage { get; set; }
 
 
-    
+
     }
 }
