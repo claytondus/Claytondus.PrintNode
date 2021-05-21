@@ -38,7 +38,7 @@ PrintNode is a remote printing API for web apps.  We use it at [Agonswim.com](ht
 ## Usage
 
 1. Get an account and API Key at [https://printnode.com](https://https://app.printnode.com/app/login/register)
-2. Clone the repo
+2. Add the NuGet package to your project
    ```sh
    dotnet add package Claytondus.PrintNode
    ```
