@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Claytondus.PrintNode.Models;
 using Xunit;
@@ -21,13 +22,31 @@ namespace Claytondus.PrintNode.Test
         {
             var job = new PrintJob
             {
-                printerId = 69051751,
+                printerId = 70367312,
                 title = $"Test {DateTime.Now}",
                 contentType = "raw_base64",
                 content = Convert.ToBase64String(Encoding.ASCII.GetBytes(File.ReadAllText("test.zpl"))),
                 source = "test"
             };
             var created = await _client.CreatePrintJobAsync(job);
+            var job2 = new PrintJob
+            {
+                printerId = 70367312,
+                title = $"Test {DateTime.Now}",
+                contentType = "raw_base64",
+                content = Convert.ToBase64String(Encoding.ASCII.GetBytes(File.ReadAllText("test.zpl"))),
+                source = "test"
+            };
+            var created2 = await _client.CreatePrintJobAsync(job2);
+            var job3 = new PrintJob
+            {
+                printerId = 70367312,
+                title = $"Test {DateTime.Now}",
+                contentType = "raw_base64",
+                content = Convert.ToBase64String(Encoding.ASCII.GetBytes(File.ReadAllText("test.zpl"))),
+                source = "test"
+            };
+            var created3 = await _client.CreatePrintJobAsync(job3);
             Assert.True(created > 0);
         }
 
@@ -36,7 +55,7 @@ namespace Claytondus.PrintNode.Test
         {
             var job = new PrintJob
             {
-                printerId = 69051751,
+                printerId = 70367312,
                 title = $"Test {DateTime.Now}",
                 contentType = "raw_uri",
                 content = "https://easypost-files.s3-us-west-2.amazonaws.com/files/postage_label/20170807/0a4c06b8b97c4edbb6fa37126cf414cf.zpl",
@@ -51,7 +70,7 @@ namespace Claytondus.PrintNode.Test
         {
             var job = new PrintJob
             {
-                printerId = 69051751,
+                printerId = 70367312,
                 title = $"Test {DateTime.Now}",
                 contentType = "raw_uri",
                 content = "https://easypost-files.s3-us-west-2.amazonaws.com/files/postage_label/20170807/05bf2acc50b544f38df5ab1cb232513d.epl2",

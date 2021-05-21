@@ -11,7 +11,7 @@ namespace Claytondus.PrintNode
 {
     public class RestClient
     {
-	    protected readonly Url PrintNodeUrl = "https://api.printnode.com/";
+	    protected readonly string PrintNodeUrl = "https://api.printnode.com/";
 	    private readonly string _authToken;
 	    private readonly ILogger? _logger;
 
@@ -56,12 +56,12 @@ namespace Claytondus.PrintNode
 			}
 			catch (FlurlHttpException ex)
 			{
-			    var response = await ex.GetResponseStringAsync();
-			    throw new PrintNodeException("error", response)
+			    throw new PrintNodeException("error", ex.Message)
 			    {
 			        Method = "GET",
 			        Resource = resource,
-			        HttpStatus = ex.Call.HttpResponseMessage.StatusCode
+			        HttpStatus = ex.Call.HttpResponseMessage.StatusCode,
+			        ResponseBody = ex.Call.HttpResponseMessage.Content.ToString()
 			    };
 			}
 		}
@@ -97,14 +97,14 @@ namespace Claytondus.PrintNode
 			}
 			catch (FlurlHttpException ex)
 			{
-                var response = await ex.GetResponseStringAsync();
-			    throw new PrintNodeException("error", response)
+			    throw new PrintNodeException("error", ex.Message)
 			    {
 			        Method = "POST",
 			        Resource = resource,
 			        HttpStatus = ex.Call.HttpResponseMessage.StatusCode,
 			        HttpMessage = ex.Message,
-			        RequestBody = ex.Call.RequestBody
+			        RequestBody = ex.Call.RequestBody,
+			        ResponseBody = ex.Call.HttpResponseMessage.Content.ToString()
 			    };
 			}
 
@@ -129,8 +129,7 @@ namespace Claytondus.PrintNode
 		    }
 		    catch (FlurlHttpException ex)
 		    {
-		        var response = await ex.GetResponseStringAsync();
-		        throw new PrintNodeException("error", response)
+		        throw new PrintNodeException("error", ex.Message)
 		        {
 		            Method = "PUT",
 		            Resource = resource,
@@ -159,8 +158,7 @@ namespace Claytondus.PrintNode
             }
             catch (FlurlHttpException ex)
             {
-                var response = await ex.GetResponseStringAsync();
-                throw new PrintNodeException("error", response)
+                throw new PrintNodeException("error", ex.Message)
                 {
                     Method = "DELETE",
                     Resource = resource,
@@ -191,7 +189,7 @@ namespace Claytondus.PrintNode
 			catch (FlurlHttpException ex)
 			{
                 var response = await ex.GetResponseStringAsync();
-			    throw new PrintNodeException("error", response)
+			    throw new PrintNodeException("error", ex.Message)
 			    {
 			        Method = "DELETE",
 			        Resource = resource,
