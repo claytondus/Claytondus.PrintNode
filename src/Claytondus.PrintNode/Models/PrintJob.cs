@@ -4,7 +4,7 @@ namespace Claytondus.PrintNode.Models
 {
     public class PrintJob
     {
-        public int? id { get; set; }
+        public ulong? id { get; set; }
         public Printer? printer { get; set; }
         public int? printerId { get; set; }
         public string? title { get; set; }

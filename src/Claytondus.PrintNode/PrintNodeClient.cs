@@ -44,10 +44,10 @@ namespace Claytondus.PrintNode
 		/// </summary>
 		/// <param name="job"></param>
 		/// <returns></returns>
-	    public async Task<int> CreatePrintJobAsync(PrintJob job)
+	    public async Task<ulong> CreatePrintJobAsync(PrintJob job)
 	    {
 	        const string resource = "/printjobs";
-	        return await PostAsync<int>(resource, job);
+	        return await PostAsync<ulong>(resource, job);
 	    }
 
 		/// <summary>
